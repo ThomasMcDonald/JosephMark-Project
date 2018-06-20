@@ -1,8 +1,8 @@
-# client
+# Ticketing System
 
 > JosephMark Project
 
-## Build Setup
+## Installation Guide
 
 ``` bash
 # install dependencies

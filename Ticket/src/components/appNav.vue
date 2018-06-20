@@ -6,8 +6,8 @@
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
           <b-nav-item to="/">Home</b-nav-item>
-          <b-nav-item href="#" @click.prevent="userLogin()" v-if="!isLoggedIn()">Login</b-nav-item>
-          <b-nav-item href="#" @click.prevent="userLogout()" v-else>Logout</b-nav-item>
+          <b-nav-item href="/ticket"">Login</b-nav-item>
+          <b-nav-item href="#">Logout</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -19,22 +19,7 @@
 
 <script>
 
-import { isLoggedIn, login, logout } from '../utils/auth.js'
-
 export default {
-  name: 'app-nav',
-  methods: {
-    userLogin () {
-      login()
-    },
-
-    userLogout () {
-      logout()
-    },
-
-    isLoggedIn () {
-      return isLoggedIn()
-    }
-  }
+  name: 'app-nav'
 }
 </script>
