@@ -1,15 +1,10 @@
 'use strict';
 
 const express = require('express');
+var cors = require('cors')
 const app = express();
 
-var mysql = require('mysql')
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'dbuser',
-  password : 's3kreee7',
-  database : 'my_db'
-});
+app.use(cors())
 
 
 //Api call to retrieve all Tickets
@@ -19,11 +14,11 @@ app.get('/api/tickets', (req, res) => {
   {
     title: "Ticket 1",
     description: 'Startup NYC',
-    priority: "High",
+    priority: "Medium",
     dueDate: "11-11-2012",
     resolvedDate: "10-11-2012",
-    createdBy: 12345,
-    assignedTo: 12345
+    createdBy: "Thomas McDonald",
+    assignedTo: "Thomas McDonald"
   },
   {
     title: "Ticket 2",
@@ -31,35 +26,35 @@ app.get('/api/tickets', (req, res) => {
     priority: "High",
     dueDate: "11-11-2012",
     resolvedDate: "10-11-2012",
-    createdBy: 12345,
-    assignedTo: 12345
+    createdBy: "Thomas McDonald",
+    assignedTo: "Thomas McDonald"
   },
   {
     title: "Ticket 2",
     description: 'Startup NYC',
-    priority: "High",
+    priority: "Low",
     dueDate: "11-11-2012",
     resolvedDate: "10-11-2012",
-    createdBy: 12345,
-    assignedTo: 12345
+    createdBy: "Thomas McDonald",
+    assignedTo: "Thomas McDonald"
   },
   {
     title: "Ticket 2",
     description: 'Startup NYC',
-    priority: "High",
+    priority: "Low",
     dueDate: "11-11-2012",
     resolvedDate: "10-11-2012",
-    createdBy: 12345,
-    assignedTo: 12345
+    createdBy: "Thomas McDonald",
+    assignedTo: "Thomas McDonald"
   },
   {
     title: "Ticket 3",
     description: 'Startup NYC',
-    priority: "High",
+    priority: "Medium",
     dueDate: "11-11-2012",
     resolvedDate: "10-11-2012",
-    createdBy: 12345,
-    assignedTo: 12345
+    createdBy: "Thomas McDonald",
+    assignedTo: "Thomas McDonald"
   }];
 
   res.json(tickets);
