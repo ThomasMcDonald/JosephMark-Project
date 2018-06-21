@@ -18,47 +18,31 @@ Give examples
 
 A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
+Clone this repo
 
+install all required dependencies
 ```
-Give the example
+npm install
 ```
-
-And repeat
-
+Start VUEjs 
 ```
-until finished
+npm run dev
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
+Navigate to server folder
 ```
-Give an example
+node server.js
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Deploy as you wish, I honestly have no idea what to do here
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+- [expressjs](https://github.com/expressjs/express) - The server for handling and routing HTTP requests
+- [VUEjs](https://vuejs.org/) - The Front end framework
+- [express-jwt](https://github.com/auth0/express-jwt) - Middleware for validating JWTs for authentication
+- [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) - For generating JWTs used by authentication
+
 
 ## Authors
 
@@ -68,5 +52,5 @@ Add additional notes about how to deploy this on a live system
 ## Acknowledgments
 
 * Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Coffee
+* 
