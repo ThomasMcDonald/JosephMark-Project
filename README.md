@@ -46,11 +46,12 @@ Deploy as you wish, I honestly have no idea what to do here
 
 ## Authors
 
-* **Thomas McDonald** - [Contact](thomasmcdonald.id.au)
+* **Thomas McDonald** - [Me](thomasmcdonald.id.au)
 
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Coffee
-* 
+* StackOverflow for helping me remember
+* JosephMark for giving me this opportunity
+* Google for obvious reasons
+
