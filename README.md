@@ -20,15 +20,15 @@ A step by step series of examples that tell you how to get a development env run
 
 Clone this repo
 
-install all required dependencies
+Install all required dependencies
 ```
 npm install
 ```
-Start VUEjs 
+Navigate to the root directory and start VUEjs 
 ```
 npm run dev
 ```
-Navigate to server folder
+Navigate to server folder under the root directory and start server
 ```
 node server.js
 ```
@@ -46,7 +46,7 @@ Deploy as you wish, I honestly have no idea what to do here
 
 ## Authors
 
-* **Thomas McDonald** - [Me](thomasmcdonald.id.au)
+* **Thomas McDonald** - [Me](http://thomasmcdonald.id.au)
 
 
 ## Acknowledgments
