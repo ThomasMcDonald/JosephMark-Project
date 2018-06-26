@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Tickets from '@/components/Tickets'
+import Login from '@/components/login'
 
 Vue.use(Router)
 
@@ -9,8 +10,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Tickets',
-      component: Tickets
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Tickets,
+      meta: { requiresLogin: true }
     }
   ]
 })

@@ -8,7 +8,8 @@ var ticketSchema = new Schema({
   dueDate: String,
   resolvedDate: String,
   createdBy: String,
-  assignedTo: String
+  assignedTo: String,
+  _rowVariant: String // Added to handle the over Due color change
 });
 
 var Ticket = mongoose.model("Ticket", ticketSchema);

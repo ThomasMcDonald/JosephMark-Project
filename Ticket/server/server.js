@@ -5,11 +5,12 @@ var cors = require('cors')
 var mongoose = require('mongoose');
 var path = require('path');
 var bodyParser = require('body-parser');
-
+var bcrypt = require('bcrypt');
 var Ticket = require(path.resolve( __dirname,'models/ticket.js'));
+var User = require(path.resolve( __dirname,'models/user.js'));
+var jwt = require("jsonwebtoken");
 
-
-mongoose.connect('mongodb://localhost:27017/tickets');
+mongoose.connect('mongodb://localhost:27017/ticketSystem');
 const app = express();
 
 
@@ -38,7 +39,7 @@ app.get('/api/tickets', (req, res) => {
 app.post('/api/addticket', (req, res) => {
   var db = req.db;
   var parseParams = JSON.parse(req.body.params)
-  console.log(parseParams.title)
+  console.log(parseParams)
 
   var new_ticket = new Ticket({
     title: parseParams.title,
@@ -46,8 +47,9 @@ app.post('/api/addticket', (req, res) => {
     priority: parseParams.priority,
     dueDate: parseParams.dueDate,
     resolvedDate: parseParams.resolvedDate ==  null ? "not Resolved" : "Resolved",
-    createdBy: parseParams.createdBy ==  null ? "" : parseParams.createdBy ,
-    assignedTo: parseParams.assignedTo
+    createdBy: parseParams.createdBy,
+    assignedTo: parseParams.assignedTo,
+    _rowVariant: null
   });
 
   new_ticket.save(function (error) {
@@ -89,6 +91,84 @@ app.post('/api/removeAllTickets',(req, res) =>{
     })
   })
 });
+
+
+// New user Registration
+app.post('/api/user/register' ,(req, res) =>{
+  if (req.body.email && req.body.username && req.body.password && req.body.passwordConf) {
+    var userData = {
+      email: req.body.email,
+      username: req.body.username,
+      password: req.body.password,
+      passwordConf: req.body.passwordConf,
+    }
+    //use schema.create to insert data into the db
+    User.create(userData, function (err, user) {
+      if (err) {
+        res.send(err)
+      } else {
+        res.send({
+          success: true,
+          message: 'User Created'
+        })
+      }
+    });
+  }
+});
+
+
+// Authenticate user credentials
+app.post('/api/user/authenticate' ,(req, res) =>{
+  var credentials = JSON.parse(req.body.params)
+  User.findOne({ email: credentials.email })
+      .exec(function (err, user) {
+        if (err) {
+          return res.send({
+            error: err
+          })
+        } else if (!user) {
+          return res.send({
+            error: 'User not found.'
+          })
+        }
+        bcrypt.compare(credentials.password, user.password, function (err, result) {
+          if (result === true) {
+            const JWTToken = jwt.sign({
+              email: credentials.email,
+              _id: user._id
+            },
+            'secret',
+            {
+            expiresIn: '2h'
+            });
+            return res.send({
+              token: JWTToken,
+              _id: user._id,
+              error: null
+            })
+          } else {
+          return res.send({
+              error: "Email or Password is incorrect"
+            })
+          }
+        })
+      });
+});
+
+// Verify the token being used is active
+app.post('/api/user/verifyToken' ,(req,res) =>{
+  return true; //
+});
+
+// Get all users in the system
+app.get('/api/user/getUsers', (req,res) => {
+  User.find({},{ _id: 1, username: 1},function (error, users) {
+    if (error) { console.error(error); }
+    res.send({
+      users: users
+    })
+  }).sort({_id:-1})
+})
 
 
 app.listen(3333);
