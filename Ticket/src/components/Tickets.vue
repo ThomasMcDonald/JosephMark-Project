@@ -3,15 +3,21 @@
     <app-nav></app-nav>
     <b-row>
       <b-col md="6" class="my-1">
-        <b-form-group horizontal class="mb-0">
+        <b-form-group horizontal label="Filter" class="mb-0">
           <b-input-group>
+              <b-form-input v-model="filter" placeholder="Type to Search" />
+              <b-input-group-append>
+                <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+              </b-input-group-append>
               <b-button variant="success" size="sm" @click.stop="addTicketModal" class="mr-1">Submit New Ticket</b-button>
+
           </b-input-group>
         </b-form-group>
       </b-col>
     </b-row>
 
-    <b-table responsive striped hover :items="tickets" :fields="fields"> :sort-by.sync="sortBy" :sort-desc.sync="sortDesc">
+
+    <b-table responsive striped hover show-empty :items="tickets" :fields="fields" :filter="filter" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :sort-direction="sortDirection" @filtered="onFiltered">
       <template slot="priority" slot-scope="data">
         <b-badge :variant="data.value == 'High' ? 'danger' : (data.value == 'Medium' ? 'warning' : 'success')">{{data.value}}</b-badge>
       </template>
@@ -74,7 +80,8 @@ export default {
   },
   data () {
     return {
-      sortBy: 'age',
+      sortBy: null,
+      filter: null,
       sortDesc: false,
       tickets: [],
       users: [],
@@ -92,10 +99,10 @@ export default {
       fields: [
         { key: 'title', sortable: false },
         { key: 'description', sortable: false },
-        { key: 'dueDate', sortable: false },
+        { key: 'dueDate', sortable: true },
         { key: 'resolvedDate', sortable: false },
         { key: 'createdBy', sortable: false },
-        { key: 'assignedTo', sortable: false },
+        { key: 'assignedTo', sortable: true },
         { key: 'priority', sortable: false },
         { key: 'Info', sortable: false }
       ]
