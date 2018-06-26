@@ -1,7 +1,7 @@
 import axios from 'axios'
 const baseURl = 'http://localhost:3333'
 
-export { getTickets, addTicket, deleteTicket }
+export { getTickets, addTicket, deleteTicket, resolveTicket }
 
 function getTickets () {
   const url = `${baseURl}/api/tickets`
@@ -17,4 +17,9 @@ function addTicket (params) {
 function deleteTicket (id) {
   const url = `${baseURl}/api/deleteticket/` + id
   return axios.post(url)
+}
+
+function resolveTicket (id) {
+  const url = `${baseURl}/api/resolveTicket`
+  return axios.post(url, { params: id })
 }

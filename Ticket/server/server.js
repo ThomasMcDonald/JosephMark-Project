@@ -46,7 +46,7 @@ app.post('/api/addticket', (req, res) => {
     description: parseParams.description,
     priority: parseParams.priority,
     dueDate: parseParams.dueDate,
-    resolvedDate: parseParams.resolvedDate ==  null ? "not Resolved" : "Resolved",
+    resolvedDate: parseParams.resolvedDate ==  null ? "Not Resolved" : parseParams.resolvedDate,
     createdBy: parseParams.createdBy,
     assignedTo: parseParams.assignedTo,
     _rowVariant: null
@@ -78,6 +78,28 @@ app.post('/api/deleteticket/:id',(req, res) =>{
     })
   })
 });
+
+app.post('/api/resolveTicket' ,(req,res) =>{
+
+  var today = new Date()
+  var dd = today.getDate()
+  var mm = today.getMonth() + 1
+  var yyyy = today.getFullYear()
+  if (dd < 10) { dd = '0' + dd }
+  if (mm < 10) { mm = '0' + mm }
+  today = yyyy + '-' + mm + '-' + dd
+  Ticket.updateOne({_id: req.body.params},{ $set: { resolvedDate: today } }, function(err, ticket) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send({
+        message: 'The Ticket has been Resolved'
+      })
+    }
+  });
+});
+
+
 
 
 // Remove all the tickets, for testing purposes only

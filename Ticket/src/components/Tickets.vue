@@ -10,14 +10,13 @@
                 <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
               </b-input-group-append>
               <b-button variant="success" size="sm" @click.stop="addTicketModal" class="mr-1">Submit New Ticket</b-button>
-
           </b-input-group>
         </b-form-group>
       </b-col>
     </b-row>
 
 
-    <b-table responsive striped hover show-empty :items="tickets" :fields="fields" :filter="filter" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :sort-direction="sortDirection" @filtered="onFiltered">
+    <b-table responsive striped hover show-empty :items="tickets" :fields="fields" :filter="filter">
       <template slot="priority" slot-scope="data">
         <b-badge :variant="data.value == 'High' ? 'danger' : (data.value == 'Medium' ? 'warning' : 'success')">{{data.value}}</b-badge>
       </template>
@@ -29,11 +28,12 @@
 
 
     <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
-          <pre>{{ modalInfo.content }}</pre>
+          <pre>{{ modalInfo.description }}</pre>
+          <b-button size="sm" class="mr-1" @click="resolveTicket(modalInfo._id)" >Resolve</b-button>
     </b-modal>
 
   <b-modal ref="addTicket" hide-footer title="Create a new ticket">
-    <b-form @submit="onSubmit">
+    <b-form @submit="createTicket">
       <b-form-group id="ticketGroup">
         <label for="ticketTitle">Title</label>
         <b-form-input required id="ticketTitle" type="text" v-model="form.title" required placeholder="Enter Title"></b-form-input>
@@ -71,7 +71,7 @@
 <script>
 import AppNav from './AppNav'
 import localforage from 'localforage'
-import { getTickets, deleteTicket, addTicket } from '../utils/ticket-api.js'
+import { getTickets, deleteTicket, addTicket, resolveTicket } from '../utils/ticket-api.js'
 import { getUsers } from '../utils/user-Api.js'
 export default {
   name: 'Tickets',
@@ -95,7 +95,7 @@ export default {
         createdBy: '',
         assignedTo: ''
       },
-      modalInfo: { title: '', content: '' },
+      modalInfo: { title: '', description: '', _id: '' },
       fields: [
         { key: 'title', sortable: false },
         { key: 'description', sortable: false },
@@ -120,10 +120,12 @@ export default {
         if (dd < 10) { dd = '0' + dd }
         if (mm < 10) { mm = '0' + mm }
         today = yyyy + '-' + mm + '-' + dd
-        console.log(today)
         this.tickets.forEach((element) => {
           if (today > element.dueDate) {
             element._rowVariant = 'danger'
+          }
+          if (element.resolvedDate !== 'Not Resolved') {
+            element._rowVariant = 'success'
           }
         })
       })
@@ -141,14 +143,20 @@ export default {
         })
       })
     },
+    resolveTicket (id) {
+      resolveTicket(id).then((val) => {
+        console.log(val.data.message)
+        this.getTickets()
+      })
+    },
     deleteTicket (ticketid) {
       console.log(ticketid)
       deleteTicket(ticketid)
     },
     info (item, index, button) {
-      console.log('sdasdas')
-      this.modalInfo.title = `Row index: ${index}`
-      this.modalInfo.content = JSON.stringify(item, null, 2)
+      this.modalInfo.title = item.title
+      this.modalInfo.description = item.description
+      this.modalInfo._id = item._id
       this.$root.$emit('bv::show::modal', 'modalInfo', button)
     },
     resetModal () {
@@ -158,12 +166,13 @@ export default {
     addTicketModal () {
       this.$refs.addTicket.show()
     },
-    onSubmit (evt) {
+    createTicket (evt) {
       evt.preventDefault()
       this.form.createdBy = this.currentUser
-      addTicket(JSON.stringify(this.form)).then(
-        this.getTickets().then(
-          this.$refs.addTicket.hide()))
+      addTicket(JSON.stringify(this.form)).then(() => {
+        this.getTickets()
+        this.$refs.addTicket.hide()
+      })
     }
   },
   mounted () {
