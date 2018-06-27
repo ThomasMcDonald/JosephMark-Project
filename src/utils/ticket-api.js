@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseURl = 'https://jm-ticketing.herokuapp.com'
+const baseURl = 'http://localhost:3000'
 
 export { getTickets, addTicket, deleteTicket, resolveTicket }
 

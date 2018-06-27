@@ -17,22 +17,28 @@
 
 
     <b-table responsive striped hover show-empty :items="tickets" :fields="fields" :filter="filter">
+      <template slot="createdBy" slot-scope="data">
+        {{data.item.createdBy.username}}
+      </template>
+      <template slot="assignedTo" slot-scope="data">
+        {{data.item.assignedTo.username}}
+      </template>
       <template slot="priority" slot-scope="data">
         <b-badge :variant="data.value == 'High' ? 'danger' : (data.value == 'Medium' ? 'warning' : 'success')">{{data.value}}</b-badge>
       </template>
-      <template slot="Info" slot-scope="row">
-      <b-button size="sm" @click.stop="ticketInfo(row.item, row.index, $event.target)" class="mr-1">Details</b-button>
+      <template slot="Info" slot-scope="data">
+      <b-button size="sm" @click.stop="ticketInfo(data.item, data.index, $event.target)" class="mr-1">Details</b-button>
       </template>
     </b-table>
 
 
 
-    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
+    <b-modal id="modalInfo" :title="modalInfo.title" ok-only>
           <pre>{{ modalInfo.description }}</pre>
-          <b-button variant="danger" v-if="currentUser.id == modalInfo.assignedTo" size="sm" class="mr-1" @click="resolveTicket(modalInfo._id)" >Resolve</b-button>
+          <b-button variant="danger" v-if="currentUser._id === modalInfo.assignedTo._id && modalInfo.resolvedDate == 'Not Resolved'" size="sm" class="mr-1" @click="resolveTicket(modalInfo._id)" >Resolve</b-button>
     </b-modal>
 
-  <b-modal ref="addTicket" hide-footer title="Create a new ticket">
+  <b-modal ref="addTicket" hide-footer title="Create a new ticket" @hide="resetTicketForm">
     <b-form @submit="createTicket">
       <b-form-group id="ticketGroup">
         <label for="ticketTitle">Title</label>
@@ -56,7 +62,7 @@
         <label for="assignTicket">Assign Ticket</label>
         <b-form-select id="assignTicket" v-model="form.assignedTo" class="mb-3">
         <option :value="null">Assign</option>
-        <option v-for="user in users" :value="user._id">{{ user.username }}</option>
+        <option v-for="user in users" :value="user">{{ user.username }}</option>
         </b-form-select>
 
       </b-form-group>
@@ -87,7 +93,7 @@ export default {
       users: [],
       currentUser: {
         username: '',
-        id: ''
+        _id: ''
       },
       form: {
         title: '',
@@ -98,7 +104,7 @@ export default {
         createdBy: '',
         assignedTo: ''
       },
-      modalInfo: { title: '', description: '', _id: '', assignedTo: '' },
+      modalInfo: { title: '', description: '', _id: '', assignedTo: {username: '', id: ''}, resolvedDate: null },
       fields: [
         { key: 'title', sortable: false },
         { key: 'description', sortable: false },
@@ -141,7 +147,7 @@ export default {
           this.users.forEach((element) => {
             if (id === element._id) {
               this.currentUser.username = element.username
-              this.currentUser.id = id
+              this.currentUser._id = id
             }
           })
         })
@@ -161,12 +167,19 @@ export default {
       this.modalInfo.title = item.title
       this.modalInfo.description = item.description
       this.modalInfo._id = item._id
-      this.modalInfo.assignedTo = item.assignedTo
+      this.modalInfo.assignedTo.username = item.assignedTo.username
+      this.modalInfo.assignedTo._id = item.assignedTo._id
+      this.modalInfo.resolvedDate = item.resolvedDate
       this.$root.$emit('bv::show::modal', 'modalInfo', button)
     },
-    resetModal () {
-      this.modalInfo.title = ''
-      this.modalInfo.content = ''
+    resetTicketForm () {
+      this.form.title = ''
+      this.form.description = ''
+      this.form._id = ''
+      this.form.dueDate = ''
+      this.form.assignedTo.username = ''
+      this.form.assignedTo._id = ''
+      this.form.resolvedDate = ''
     },
     addTicketModal () {
       this.$refs.addTicket.show()
@@ -174,6 +187,7 @@ export default {
     createTicket (evt) {
       evt.preventDefault()
       this.form.createdBy = this.currentUser
+      console.log(this.form.assignedTo)
       addTicket(JSON.stringify(this.form)).then(() => {
         this.getTickets()
         this.$refs.addTicket.hide()

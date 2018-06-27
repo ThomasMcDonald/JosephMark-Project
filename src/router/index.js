@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Tickets from '@/components/Tickets'
+import Dashboard from '@/components/dashboard'
 import Login from '@/components/login'
 
 import { isActiveToken } from '../utils/user-Api.js'
@@ -17,7 +17,7 @@ const router = new Router({
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component: Tickets,
+      component: Dashboard,
       meta: { requiresLogin: true }
     }
   ]
