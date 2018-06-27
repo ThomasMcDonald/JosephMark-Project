@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseURl = 'https://jm-ticketing.herokuapp.com/'
+const baseURl = 'https://jm-ticketing.herokuapp.com'
 
 export { getTickets, addTicket, deleteTicket, resolveTicket }
 

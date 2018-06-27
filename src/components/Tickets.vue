@@ -29,7 +29,7 @@
 
     <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
           <pre>{{ modalInfo.description }}</pre>
-          <b-button size="sm" class="mr-1" @click="resolveTicket(modalInfo._id)" >Resolve</b-button>
+          <b-button variant="danger" v-if="currentUser.id == modalInfo.assignedTo" size="sm" class="mr-1" @click="resolveTicket(modalInfo._id)" >Resolve</b-button>
     </b-modal>
 
   <b-modal ref="addTicket" hide-footer title="Create a new ticket">
@@ -85,7 +85,10 @@ export default {
       sortDesc: false,
       tickets: [],
       users: [],
-      currentUser: '',
+      currentUser: {
+        username: '',
+        id: ''
+      },
       form: {
         title: '',
         description: '',
@@ -95,7 +98,7 @@ export default {
         createdBy: '',
         assignedTo: ''
       },
-      modalInfo: { title: '', description: '', _id: '' },
+      modalInfo: { title: '', description: '', _id: '', assignedTo: '' },
       fields: [
         { key: 'title', sortable: false },
         { key: 'description', sortable: false },
@@ -137,7 +140,8 @@ export default {
         localforage.getItem('_id').then((id) => {
           this.users.forEach((element) => {
             if (id === element._id) {
-              this.currentUser = element.username
+              this.currentUser.username = element.username
+              this.currentUser.id = id
             }
           })
         })
@@ -157,6 +161,7 @@ export default {
       this.modalInfo.title = item.title
       this.modalInfo.description = item.description
       this.modalInfo._id = item._id
+      this.modalInfo.assignedTo = item.assignedTo
       this.$root.$emit('bv::show::modal', 'modalInfo', button)
     },
     resetModal () {

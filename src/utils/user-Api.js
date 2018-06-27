@@ -1,8 +1,8 @@
 import localforage from 'localforage'
 import axios from 'axios'
-const baseURl = 'https://jm-ticketing.herokuapp.com/'
+const baseURl = 'http://localhost:3000'
 
-export { validateCredentials, isActiveToken, getUsers }
+export { validateCredentials, isActiveToken, getUsers, registerUser }
 
 function validateCredentials (params) {
   const url = `${baseURl}/api/user/authenticate`
@@ -11,14 +11,17 @@ function validateCredentials (params) {
 
 function isActiveToken () {
   const url = `${baseURl}/api/user/verifyToken`
-  var token = ''
-  localforage.getItem('token').then((jwt) => {
-    token = jwt
+  return localforage.getItem('token').then((jwt) => {
+    return axios.post(url, { params: jwt })
   })
-  return axios.post(url, { params: token })
 }
 
 function getUsers () {
   const url = `${baseURl}/api/user/getUsers`
   return axios.get(url).then(response => response.data.users)
+}
+
+function registerUser (params) {
+  const url = `${baseURl}/api/user/register`
+  return axios.post(url, { params: params })
 }
