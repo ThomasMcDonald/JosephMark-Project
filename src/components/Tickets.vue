@@ -3,13 +3,13 @@
     <app-nav></app-nav>
     <b-row>
       <b-col md="6" class="my-1">
-        <b-form-group horizontal label="Filter" class="mb-0">
+        <b-form-group horizontal label="Filter" class="mb-1">
           <b-input-group>
               <b-form-input v-model="filter" placeholder="Type to Search" />
               <b-input-group-append>
                 <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
               </b-input-group-append>
-              <b-button variant="success" size="sm" @click.stop="addTicketModal" class="mr-1">Submit New Ticket</b-button>
+                <b-button variant="success" size="sm" @click.stop="addTicketModal" class="mr-1">Submit New Ticket</b-button>
           </b-input-group>
         </b-form-group>
       </b-col>
@@ -21,7 +21,7 @@
         <b-badge :variant="data.value == 'High' ? 'danger' : (data.value == 'Medium' ? 'warning' : 'success')">{{data.value}}</b-badge>
       </template>
       <template slot="Info" slot-scope="row">
-      <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">Details</b-button>
+      <b-button size="sm" @click.stop="ticketInfo(row.item, row.index, $event.target)" class="mr-1">Details</b-button>
       </template>
     </b-table>
 
@@ -153,7 +153,7 @@ export default {
       console.log(ticketid)
       deleteTicket(ticketid)
     },
-    info (item, index, button) {
+    ticketInfo (item, index, button) {
       this.modalInfo.title = item.title
       this.modalInfo.description = item.description
       this.modalInfo._id = item._id
