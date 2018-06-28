@@ -75,7 +75,7 @@
 
 
 <script>
-import AppNav from './AppNav'
+import AppNav from './appNav'
 import localforage from 'localforage'
 import { getTickets, deleteTicket, addTicket, resolveTicket } from '../utils/ticket-api.js'
 import { getUsers } from '../utils/user-Api.js'
