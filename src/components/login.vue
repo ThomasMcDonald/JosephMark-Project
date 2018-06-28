@@ -59,6 +59,7 @@ export default {
   },
   methods: {
     login () {
+      this.credentials.email = this.credentials.email.toLowerCase()
       validateCredentials(JSON.stringify(this.credentials)).then((user) => {
         if (user.data.error == null) {
           console.log(user)
@@ -75,6 +76,7 @@ export default {
       })
     },
     register () {
+      this.registerCredentials.email = this.registerCredentials.email.toLowerCase()
       registerUser(JSON.stringify(this.registerCredentials)).then((user) => {
         if (user.data.error == null) {
           this.$refs.toast.showToast('User Created, Please Log In', {
