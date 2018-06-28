@@ -49,7 +49,6 @@
 
         <label for="ticketPriority">Priority</label>
         <b-form-select id="ticketPriority" v-model="form.priority" class="mb-3" required>
-          <option :value="null">Level of Priority</option>
           <option value="Low">Low</option>
           <option value="Medium">Medium</option>
           <option value="High">High</option>
@@ -60,9 +59,8 @@
 
 
         <label for="assignTicket">Assign Ticket</label>
-        <b-form-select id="assignTicket" v-model="form.assignedTo" class="mb-3">
-        <option :value="null">Assign</option>
-        <option v-for="user in users" :value="user">{{ user.username }}</option>
+        <b-form-select id="assignTicket" v-model="form.assignedTo" class="mb-3" required placeholder="Assign Ticket">
+          <option v-for="user in users" :value="user">{{ user.username }}</option>
         </b-form-select>
 
       </b-form-group>
@@ -177,8 +175,7 @@ export default {
       this.form.description = ''
       this.form._id = ''
       this.form.dueDate = ''
-      this.form.assignedTo.username = ''
-      this.form.assignedTo._id = ''
+      this.form.assignedTo = ''
       this.form.resolvedDate = ''
     },
     addTicketModal () {
