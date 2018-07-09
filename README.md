@@ -2,6 +2,13 @@
 
 This project was created for the JosephMark technical interview
 
+## Tasks
+
+| Todo             | Description                                                             |
+|------------------|-------------------------------------------------------------------------|
+| Delete Tickets   | functionality is there, just need to add UI component to delete tickets |
+| RealTime Updates | Add socketio to provide users with realtime data.                       |
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
