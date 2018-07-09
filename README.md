@@ -6,6 +6,8 @@ This project was created for the JosephMark technical interview
 
 | Todo             | Description                                                             |
 |------------------|-------------------------------------------------------------------------|
+| Reevaluate JWT   | Change Secret                                                           |
+| Reevaluate JWT   | Verify the user token everytime the user tries to access the database   |
 | Delete Tickets   | functionality is there, just need to add UI component to delete tickets |
 | RealTime Updates | Add socketio to provide users with realtime data.                       |
 
