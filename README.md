@@ -14,9 +14,9 @@ This project was created for the JosephMark technical interview
 | Ticket Summaries | Add summaries of all tickets i.e How many are over due, or assigned to user |
 | Task History     | Keep track of all activities that have taken place i.e Ticket created |
 | Reevaluate DB | redesign the database |
-| Further DB checking | <ul<li>Check if user already exists, before registering</li></ul> |
+| Further DB checking | <li>Check if user already exists, before registering</li> |
 | RealTime Updates | Add socketio to provide users with realtime data.                       |
-| Diffent Types of tickets | <ul><li>Help request</li><li>Problem report</li></ul>    |
+| Diffent Types of tickets | <li>Help request</li><li>Problem report</li>    |
 
 
 
