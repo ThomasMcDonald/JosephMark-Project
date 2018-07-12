@@ -60,7 +60,9 @@
 
         <label for="assignTicket">Assign Ticket</label>
         <b-form-select id="assignTicket" v-model="form.assignedTo" class="mb-3" required placeholder="Assign Ticket">
-          <option v-for="user in users" :value="user">{{ user.username }}</option>
+          <option v-for="user in users" v-if="user._id !== currentUser._id":value="user">
+            {{ user.username }}
+          </option>
         </b-form-select>
 
       </b-form-group>
@@ -70,8 +72,6 @@
 
   </div>
 </template>
-
-
 <script>
 import AppNav from './appNav'
 import localforage from 'localforage'
@@ -153,8 +153,8 @@ export default {
     },
     resolveTicket (id) {
       resolveTicket(id).then((val) => {
-        console.log(val.data.message)
         this.getTickets()
+        this.$refs.modalInfo.hide()
       })
     },
     deleteTicket (ticketid) {

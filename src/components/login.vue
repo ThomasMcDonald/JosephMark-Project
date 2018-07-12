@@ -4,8 +4,8 @@
       <b-tab title="Login" active>
         <b-form @submit.prevent="login" class="loginForm">
           <b-form-group id="ticketGroup">
-            <label for="ticketTitle">Username</label>
-            <b-form-input required id="email" type="text" v-model="credentials.email" required placeholder="Enter Emails"></b-form-input>
+            <label for="ticketTitle">Email</label>
+            <b-form-input required id="email" type="email" v-model="credentials.email" required placeholder="Enter Emails"></b-form-input>
 
             <label for="ticketTitle">Password</label>
             <b-form-input required id="password" type="password" v-model="credentials.password" required placeholder="Enter Password"></b-form-input>
@@ -18,7 +18,7 @@
         <b-form @submit.prevent="register" class="loginForm">
           <b-form-group id="userRegister">
             <label for="Remail">Email</label>
-            <b-form-input required id="Remail" type="text" v-model="registerCredentials.email" required placeholder="Enter Email"></b-form-input>
+            <b-form-input required id="Remail" type="email" v-model="registerCredentials.email" required placeholder="Enter Email"></b-form-input>
 
             <label for="Rusername">Username</label>
             <b-form-input required id="Rusername" type="text" v-model="registerCredentials.username" required placeholder="Enter Username"></b-form-input>
