@@ -2,6 +2,24 @@
 
 This project was created for the JosephMark technical interview
 
+## Tasks
+
+| Todo             | Description                                                             |
+|------------------|-------------------------------------------------------------------------|
+| Move server |   Move server from its own repo to this one                         |
+| Change CSS Framework | Change from boostrap to [Quasar Play](https://quasar-framework.org) |
+| Reevaluate JWT   | Change Secret                                                           |
+| Reevaluate JWT   | Verify the user token everytime the user tries to access the database   |
+| Delete Tickets   | functionality is there, just need to add UI component to delete tickets |
+| Ticket Summaries | Add summaries of all tickets i.e How many are over due, or assigned to user |
+| Task History     | Keep track of all activities that have taken place i.e Ticket created |
+| Reevaluate DB | redesign the database |
+| Further DB checking | <li>Check if user already exists, before registering</li> |
+| RealTime Updates | Add socketio to provide users with realtime data.                       |
+| Diffent Types of tickets | <li>Help request</li><li>Problem report</li>    |
+
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
