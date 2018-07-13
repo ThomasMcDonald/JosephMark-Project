@@ -6,8 +6,8 @@ This project was created for the JosephMark technical interview
 
 | Todo             | Description                                                             |
 |------------------|-------------------------------------------------------------------------|
-| Move server |   Move server from its own repo to this one                         |
-| Change CSS Framework | Change from boostrap to [Quasar Play](https://quasar-framework.org) |
+| ~~Move server~~ |   ~~Move server from its own repo to this one~~                         |
+| Change CSS Framework | Change from boostrap  |
 | Reevaluate JWT   | Change Secret                                                           |
 | Reevaluate JWT   | Verify the user token everytime the user tries to access the database   |
 | Delete Tickets   | functionality is there, just need to add UI component to delete tickets |
@@ -34,7 +34,7 @@ Install all required dependencies
 ```
 npm install
 ```
-Navigate to the root directory and start VUEjs 
+Navigate to the root directory and start VUEjs
 ```
 npm run dev
 ```
@@ -67,4 +67,3 @@ This app isnt served from a server so once you have run the command you will fin
 * StackOverflow for helping me remember
 * JosephMark for giving me this opportunity
 * Google for obvious reasons
-

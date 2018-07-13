@@ -6,7 +6,7 @@ var Ticket = require(path.resolve( __dirname,'models/ticket.js'));
 var User = require(path.resolve( __dirname,'models/user.js'));
 
 //Retrieve all Tickets
-app.get('/api/tickets', (req, res) => {
+app.get('/api/ticket/tickets', (req, res) => {
   Ticket.find(function (error, tickets) {
     if (error) { console.error(error); }
     res.send({
@@ -16,7 +16,7 @@ app.get('/api/tickets', (req, res) => {
 })
 
 // Add new Ticket
-app.post('/api/addticket', (req, res) => {
+app.post('/api/ticket/addticket', (req, res) => {
   var parseParams = JSON.parse(req.body.params)
   console.log(parseParams)
 
@@ -28,7 +28,7 @@ app.post('/api/addticket', (req, res) => {
     resolvedDate: parseParams.resolvedDate ==  null ? "Not Resolved" : parseParams.resolvedDate,
     createdBy: {
       username: parseParams.createdBy.username,
-      _id: parseParams.createdBy.id
+      _id: parseParams.createdBy._id
     },
     assignedTo: {
       username: parseParams.assignedTo.username,
@@ -50,21 +50,21 @@ app.post('/api/addticket', (req, res) => {
 })
 
 // Delete the ticket matching the id param
-app.post('/api/deleteticket/:id',(req, res) =>{
-  console.log(req.params)
-  Ticket.remove({
-    _id: req.params.id
-  }, function(err, post){
+app.post('/api/ticket/deleteticket',(req, res) =>{
+  console.log(req.body.params)
+  Ticket.findByIdAndRemove(req.body.params, function (err, user) {
+    console.log('deleting user', user);
     if (err)
-      res.send(err)
-    res.send({
-      success: true,
-      message: 'Ticket saved successfully!'
-    })
-  })
+        throw err;
+    Ticket.remove({ _id: req.body.params }, function (err) {
+        console.log('deleting Ticket');
+        if (err)
+            throw err;
+          });
+        });
 });
 
-app.post('/api/resolveTicket' ,(req,res) =>{
+app.post('/api/ticket/resolveTicket' ,(req,res) =>{
 
   var today = new Date()
   var dd = today.getDate()
