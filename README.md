@@ -1,4 +1,4 @@
-# JosephMark-Project
+# Ticketing System Web Application
 
 This project was created for the JosephMark technical interview
 
