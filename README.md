@@ -15,7 +15,8 @@ This project was created for the JosephMark technical interview
 | Task History     | Keep track of all activities that have taken place i.e Ticket created |
 | Reevaluate DB | redesign the database |
 | Further DB checking | <li>Check if user already exists, before registering</li> |
-| RealTime Updates | Add socketio to provide users with realtime data.                       |
+| Real Time Updates | Add socketio to provide users with realtime data.                       |
+| Login checks | <li>One session per user</li><li>get details of user that is logged in <ul><li>IP address</li><li>GeoLocation</li></ul></li>|
 | Diffent Types of tickets | <li>Help request</li><li>Problem report</li>    |
 
 
