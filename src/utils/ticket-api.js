@@ -1,6 +1,5 @@
 import axios from 'axios'
-var PORT = process.env.PORT || 3000
-const baseURl = 'http://localhost:' + PORT
+const baseURl = 'http://localhost:8080'
 
 export { getTickets, addTicket, deleteTicket, resolveTicket }
 
