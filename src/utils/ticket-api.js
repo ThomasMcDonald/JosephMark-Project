@@ -1,7 +1,7 @@
 import axios from 'axios'
 var PORT = process.env.PORT || 3000
-const baseURl = 'http://localhost:' + PORT
-// 'https://ticketing-client.herokuapp.com/'
+const baseURl = 'https://ticketing-client.herokuapp.com'
+// http://localhost:/'
 export { getTickets, addTicket, deleteTicket, resolveTicket }
 
 // Request all tickets
