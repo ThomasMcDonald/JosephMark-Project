@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseURl = 'http://localhost:8080'
+const baseURl = 'http://localhost:10531'
 export { getTickets, addTicket, deleteTicket, resolveTicket }
 
 // Request all tickets
