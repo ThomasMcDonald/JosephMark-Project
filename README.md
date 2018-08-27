@@ -27,27 +27,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Clone this repo
-
-Install all required dependencies
-```
-npm install
-```
-Navigate to the root directory and start VUEjs
-```
-npm run dev
-```
-These steps are for dev purposes only.
-
-## Deployment
-
-Deploy as you wish, I honestly have no idea what to do here
-```
-npm run build
-```
-This app isnt served from a server so once you have run the command you will find all contents in the dist folder
+TBA
 
 
 ## Built With
